@@ -1,0 +1,131 @@
+<section>
+    <div class="container emp-profile">
+        <form>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="profile-head">
+                        <h5>{{user.Name}}</h5>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <a href="/edit-profile" class="btn btn-primary profile-edit-btn">Edit Profile</a>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <div>
+                        <a href="/cart" class="links">My Cart</a>
+                        <br>
+                        <a href="/orders" class="links">My Orders</a>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="tab-content profile-tab" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>User Id</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{user._id}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Name</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{user.Name}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Email</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>{{user.Email}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Phone</label>
+                                </div>
+                                {{#if user.Phone}}
+                                <div class="col-md-6">
+                                    <p>{{user.Phone}}</p>
+                                </div>
+                                {{else}}
+                                <div class="col-md-6">
+                                    <p>---</p>
+                                </div>
+                                {{/if}}
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Address</label>
+                                </div>
+                                {{#if user.Address}}
+                                <div class="col-md-6">
+                                    <p>{{user.Address}}</p>
+                                </div>
+                                {{else}}
+                                <div class="col-md-6">
+                                    <p>---</p>
+                                </div>
+                                {{/if}}
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Pincode</label>
+                                </div>
+                                {{#if user.Pincode}}
+                                <div class="col-md-6">
+                                    <p>{{user.Pincode}}</p>
+                                </div>
+                                {{else}}
+                                <div class="col-md-6">
+                                    <p>---</p>
+                                </div>
+                                 {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+<style>
+    body{
+        background: rgb(158, 210, 255);
+    }
+.emp-profile{
+    padding: 3%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    border-radius: 0.5rem;
+    background: #fff;
+}
+.profile-head h5{
+    color: #333;
+}
+.profile-edit-btn{
+    border: none;
+    margin-left: 400px;
+    border-radius: 1.5rem;
+    width: 70%;
+    padding: 2%;
+    font-weight: 600;
+    color: #ffffff;
+    cursor: pointer;
+}
+.links{
+    text-decoration: none;
+    color: grey;
+}
+.links:hover{
+    color: black;
+    text-decoration: none;
+}
+</style>

@@ -1,0 +1,55 @@
+<section>
+    <div class="container">
+        <table class="table table-bordered mt-5" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th scope="col">UserId</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Pincode</th>
+                    <th scope="col">Mobile</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Payment</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each orders}}
+                <tr>
+                    <td>{{this.userId}}</td>
+                    <td>{{this.formattedDate}}</td>
+                    <td>{{this.deliveryDetails.address}}</td>
+                    <td>{{this.deliveryDetails.pincode}}</td>
+                    <td>{{this.deliveryDetails.mobile}}</td>
+                    <td>{{this.total}}</td>
+                    <td>{{this.paymentMethod}}</td>
+                    <td>{{this.status}}</td>
+                    <td>
+                        {{#notEqual this.status 'shipped'}}
+                        <button class="btn btn-primary" onclick="changeToShip('{{this._id}}')">Ship</button>
+                        {{/notEqual}}
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</section>
+<script>
+    function changeToShip(orderId) {
+        $.ajax({
+            url: '/admin/change-to-ship',
+            data: {
+                orderId: orderId
+            },
+            method: 'POST',
+            success: function (response) {
+                if (response.status) {
+                    alert('Product shipped')
+                    location.reload()
+                }
+            }
+        });
+    }
+</script>

@@ -1,0 +1,85 @@
+<section>
+    <div class="container">
+        <table class="table table-bordered mt-5">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each products}}
+                <tr>
+                    <td><img src="/product-images/{{this.product._id}}.jpg" alt="" style="width: 70px; height: 70px">
+                    </td>
+                    <td>{{this.product.Name}}</td>
+                    <td>₹{{this.product.Price}}</td>
+                    <td>
+                        <button class="cart-item-count mr-3" id="dec-quantity" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',-1)">-</button>
+                        <span id="{{this.product._id}}">{{this.quantity}}</span> 
+                        <button class="cart-item-count ml-3" id="inc-quantity" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',1)">+</button>
+                    </td>
+                    <td>
+                        <a href="/remove-product?cid={{this._id}}&pid={{this.product._id}}" class="btn btn-danger" onclick="removeProduct('{{this._id}}','{{this.product._id}}')">Remove</a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        <div class="float-right mr-2 mt-4 pt-2">
+            <h4 class="">Total Price: ₹<span id="total">{{total}}</span></h4>
+            <a href="/place-order" class="btn btn-primary mt-4" style="width: 100%">Place Order</a>
+        </div>
+    </div>
+</section>
+<script>
+    function changeQuantity(cartId, proId, userId, count){
+        let quantity = parseInt(document.getElementById(proId).innerHTML)
+        let cartCount = parseInt(document.getElementById('cart-count').innerHTML)
+        count = parseInt(count)
+        $.ajax({
+            url: '/change-product-quantity',
+            data: {
+                cart: cartId,
+                product: proId,
+                user: userId,
+                count: count,
+                quantity: quantity
+            },
+            method: 'post',
+            success: (response) => {
+                if(response.removeProduct){
+                    alert('Product removed from cart')
+                    location.reload()
+                }
+                else
+                    document.getElementById(proId).innerHTML = quantity + count
+                    document.getElementById('total').innerHTML = response.total
+            }
+        })
+    }
+    function removeProduct(cartId, proId){
+        $.ajax({
+            url: '/remove-product',
+            data:{
+                cartId: cartId,
+                proId: proId
+            },
+            method: 'post',
+            success: (response) => {
+                if(response.removeProduct){
+                    alert('Product removed from cart')
+                    location.reload()
+                }
+            }
+        })
+    }
+</script>
+<style>
+    body{
+        background: rgb(158, 210, 255);
+    }
+</style>
