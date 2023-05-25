@@ -11,8 +11,11 @@ var http = require('http');
 /**
  * Get port from environment and store in Express.
  */
-
+const ip = '0.0.0.0';
 var port = normalizePort(process.env.PORT || '3000');
+app.listen(port, ip, () => {
+  console.log(`Server is running on ${ip}:${port}`);
+});
 app.set('port', port);
 
 /**
