@@ -77,7 +77,7 @@
         var rzp1 = new Razorpay(options)
         rzp1.open()
     }
-    function verifyPayment(payment, order){
+    function verifyPayment(payment, order) {
         $.ajax({
             url: '/verify-payment',
             data: {
@@ -86,7 +86,7 @@
             },
             method: 'post',
             success: (response) => {
-                if(response.status)
+                if (response.status)
                     location.href = '/order-success'
                 else
                     alert('Payment failed')
@@ -95,7 +95,7 @@
     }
 </script>
 <style>
-        body{
-            background: -webkit-linear-gradient(left, #3931af, #00c6ff);
-        }
-    </style>
+    body {
+        background: rgb(158, 210, 255);
+    }
+</style>
